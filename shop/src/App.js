@@ -47,7 +47,7 @@ function App() {
             <button onClick={()=>{
               if(count < 4){
                 setModal(1)
-                setTimeout(10000)
+                setTimeout(11000)
                 axios.get('https://codingapple1.github.io/shop/data'+count+'.json')
                 .then((result)=>{
                   let copyShoes = [...shoes, ...result.data]

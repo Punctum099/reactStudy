@@ -3,6 +3,7 @@ import { useState } from 'react';
 import './App.css';
 import data from './data'
 import Detail from './pages/Detail';
+import Cart from './pages/Cart';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import axios from 'axios';
 
@@ -47,7 +48,7 @@ function App() {
             <button onClick={()=>{
               if(count < 4){
                 setModal(1)
-                setTimeout(11000)
+                setTimeout(1000)
                 axios.get('https://codingapple1.github.io/shop/data'+count+'.json')
                 .then((result)=>{
                   let copyShoes = [...shoes, ...result.data]
@@ -66,6 +67,8 @@ function App() {
           </>
         }/>
         <Route path='/detail/:id' element={<Detail shoes={shoes}/>}/>
+
+        <Route path='/cart' element={<Cart/>}/>
 
         <Route path='/event' element={<Event/>}>
           <Route path='one' element={<div>첫 주문시 양배추 즙 서비스</div>}/>

@@ -21,7 +21,7 @@ function App() {
           <Navbar.Brand onClick={()=>{navigate('/')}}>Navbar</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link onClick={()=>{navigate('/')}}>Home</Nav.Link>
-            <Nav.Link onClick={()=>{navigate(-1)}}>Features</Nav.Link>
+            <Nav.Link onClick={()=>{navigate('/Cart')}}>Features</Nav.Link>
             <Nav.Link onClick={()=>{navigate('/detail/0')}}>Pricing</Nav.Link>
             <Button onClick={()=>{
               let newShoes = [...shoes].sort((a,b)=>a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1 );
@@ -80,8 +80,9 @@ function App() {
 }
 
 function Product(props){
+  let navigate = useNavigate();
   return (
-    <Col>
+    <Col onClick={()=>{navigate('/detail/'+props.prod.id)}}>
       <img src={'https://codingapple1.github.io/shop/shoes'+(props.prod.id+1)+'.jpg'} width='80%'/>
       <h4>{props.prod.title}</h4>
       <p>{props.prod.content}</p>

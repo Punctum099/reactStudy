@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux"
+import { addCart } from "../store"
 import Nav from 'react-bootstrap/Nav';
 
 function Detail(props){
 
-  let {id} = useParams();
-  let [text, setText] = useState(100);
-  let [tab, setTeb] = useState(0);
+  let {id} = useParams()
+  let [text, setText] = useState(100)
+  let [tab, setTeb] = useState(0)
   let [fade, setFade] = useState('')
+  let dispatch = useDispatch()
 
   useEffect(()=>{
     const regex = /^[0-9]*$/;
@@ -20,6 +23,7 @@ function Detail(props){
   useEffect(()=>{
     setFade('end')
   }, [])
+
 
     return(
       <div className={`container start ${fade}`}>
@@ -39,7 +43,9 @@ function Detail(props){
                       <h4 className="pt-5">{prod.title}</h4>
                       <p>{prod.content}</p>
                       <p>{prod.price}</p>
-                      <button className="btn btn-danger">주문하기</button> 
+                      <button className="btn btn-danger" onClick={()=>{
+                        dispatch(addCart(prod))
+                      }}>주문하기</button> 
                     </div>
                   </>
                 )

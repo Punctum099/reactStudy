@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux"
 import { addCart } from "../store"
 import Nav from 'react-bootstrap/Nav';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 function Detail(props){
 
@@ -22,6 +23,10 @@ function Detail(props){
 
   useEffect(()=>{
     setFade('end')
+    let watched = new Set(JSON.parse(localStorage.getItem('watched')))
+    watched.add(id)
+    watched = Array.from(watched)
+    localStorage.setItem('watched', JSON.stringify(watched))
   }, [])
 
 
@@ -71,6 +76,7 @@ function Detail(props){
           tab == 1 ? <div>내용1</div> : 
           tab == 2 ? <div>내용2</div> : null*/
         }
+        <Watched arr={JSON.parse(localStorage.getItem('watched'))}/>
       </div> 
     );
   }
@@ -89,6 +95,26 @@ function Detail(props){
     return (<div className={`start ${fade}`}>
       {[<div>{shoes[0].title}</div>, <div>{shoes[1].title}</div>, <div>{shoes[2].title}</div>][tab]}
     </div>)
+  }
+
+  function Watched({arr}){
+    let navigate = useNavigate();
+    return (
+      <div className='show'>
+        <h3>최근 본 상품</h3> 
+        <ListGroup>
+        {
+          arr.map((value)=>{ 
+            return (
+              <ListGroup.Item onClick={()=>{navigate('/detail/'+value)}}>
+                <img src={'https://codingapple1.github.io/shop/shoes'+(value*1+1)+'.jpg'} width="10%" />
+              </ListGroup.Item>
+            )
+          })
+        }
+        </ListGroup>
+      </div>
+    )
   }
 
   export default Detail

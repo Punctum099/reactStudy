@@ -1,5 +1,5 @@
 import { Container, Row, Col, Nav, Navbar, Button } from 'react-bootstrap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import data from './data'
 import Detail from './pages/Detail';
@@ -8,6 +8,10 @@ import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import axios from 'axios';
 
 function App() {
+
+  useEffect(()=>{
+    if(localStorage.getItem('watched') === null) localStorage.setItem('watched', JSON.stringify([]))
+  },[])
 
   let [modal, setModal] = useState(0);
   let [shoes, setShoes] = useState(data);
@@ -27,7 +31,7 @@ function App() {
               let newShoes = [...shoes].sort((a,b)=>a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1 );
               setShoes(newShoes);
             }}>정렬</Button>
-          </Nav>
+          </Nav>  
         </Container>
       </Navbar>
 
